@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi Modas Feminina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FDF5F3; --card:#FFFFFF; --ink:#2E2220; --ink-soft:#8C6F6A;
+  --rose:#D88A9A; --rose-deep:#B85C74; --gold:#C6972F; --gold-deep:#9C7420; --gold-soft:#E8CE93; --line:#F0DDD9; --taupe:#F2E0D7;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#241C1D; --card:#2E2325; --ink:#F5E9E5; --ink-soft:#CBA9A4; --gold:#D9AE4E; --gold-soft:#8A6A33; --line:#443234; --taupe:#3E2E2E; }
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+body{background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; min-height:100%; padding-bottom:40px;}
+h1,h2,h3,.serif{font-family:'Fraunces',serif;}
+.topbar{background:var(--gold-deep); color:#fff; font-size:12px; text-align:center; padding:calc(7px + env(safe-area-inset-top,0px)) 12px 7px; letter-spacing:.2px;}
+header{position:sticky; top:0; z-index:10; background:var(--bg); padding:14px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between;}
+.logo{font-family:'Fraunces',serif; font-style:italic; font-size:19px; letter-spacing:.2px; color:var(--gold-deep);}
+nav{display:flex; gap:14px; align-items:center;}
+nav button{background:none; border:none; color:var(--ink-soft); font-size:14px; font-family:'Inter',sans-serif; cursor:pointer; padding:6px;}
+nav button.active{color:var(--gold-deep); font-weight:600;}
+.cart-btn{position:relative;}
+.badge{position:absolute; top:-4px; right:-8px; background:var(--gold); color:#fff; font-size:10px; border-radius:10px; padding:1px 5px;}
+main{max-width:640px; margin:0 auto; padding:22px 18px; width:100%;}
+.hero{padding:38px 24px; margin:-22px -18px 24px; background:linear-gradient(135deg, var(--gold-deep), var(--gold) 45%, var(--rose)); color:#fff; text-align:center;}
+.hero .kicker{font-size:12px; letter-spacing:.5px; opacity:.9;}
+.hero h1{font-size:30px; font-weight:500; line-height:1.15; margin:8px auto 0; max-width:18ch;}
+.hero p{opacity:.95; margin:10px auto 0; font-size:14px; max-width:34ch;}
+.hero .btn{background:#fff; color:var(--gold-deep); font-weight:600; display:inline-block; width:auto; padding:11px 26px; margin-top:16px;}
+.benefits{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:26px;}
+.benefits div{border:1px solid var(--line); padding:12px 10px; text-align:center; font-size:12px; color:var(--ink-soft); background:var(--card);}
+.benefits div b{display:block; color:var(--ink); font-size:13px; font-weight:600; margin-bottom:2px;}
+.cat-tabs{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:6px;}
+.cat-tabs button{flex:0 0 auto; padding:7px 14px; border:1px solid var(--line); background:var(--card); color:var(--ink-soft); font-size:12.5px; cursor:pointer; border-radius:20px; white-space:nowrap;}
+.cat-tabs button.active{background:var(--gold-deep); border-color:var(--gold-deep); color:#fff;}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px;}
+.card{background:var(--card); border:1px solid var(--line); border-radius:2px; overflow:hidden; display:flex; flex-direction:column;}
+.thumb{aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:15px; font-style:italic; color:#fff; text-align:center; padding:10px;}
+.card .info{padding:10px 12px 12px;}
+.card .cat{font-size:11px; color:var(--ink-soft);}
+.card .name{font-size:14px; margin:2px 0 6px; font-weight:500;}
+.card .price{font-size:14px; color:var(--gold); font-weight:600;}
+.card button{margin-top:8px; width:100%; padding:8px; background:var(--gold-deep); color:#fff; border:none; font-size:12px; cursor:pointer;}
+.card button:disabled{background:var(--taupe); color:var(--ink-soft); cursor:not-allowed;}
+form{display:flex; flex-direction:column; gap:10px; max-width:360px; margin:0 auto;}
+input,select,textarea{padding:11px 12px; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:2px; font-size:14px; font-family:'Inter',sans-serif;}
+label{font-size:12px; color:var(--ink-soft); margin-bottom:-4px;}
+.btn{background:var(--gold-deep); color:#fff; border:none; padding:12px; font-size:14px; cursor:pointer; border-radius:2px; margin-top:6px;}
+.btn.secondary{background:none; border:1px solid var(--ink); color:var(--ink);}
+.link-sw{font-size:13px; color:var(--ink-soft); margin-top:10px;}
+.link-sw a{color:var(--gold-deep); cursor:pointer; text-decoration:underline;}
+.row{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 0; border-bottom:1px solid var(--line);}
+.row .rname{font-size:14px;}
+.row .rsub{font-size:12px; color:var(--ink-soft);}
+.qty{display:flex; align-items:center; gap:8px;}
+.qty button{width:26px; height:26px; border:1px solid var(--line); background:none; color:var(--ink); font-size:14px; cursor:pointer;}
+.total{display:flex; justify-content:space-between; padding:16px 0; font-size:16px; font-weight:600;}
+.empty{color:var(--ink-soft); font-size:14px; padding:30px 0; text-align:center;}
+.pill{display:inline-block; font-size:11px; background:var(--gold-soft); color:var(--ink); padding:3px 9px; border-radius:20px; margin-top:4px;}
+.total span:last-child{color:var(--gold);}
+.order-card{border:1px solid var(--line); padding:14px; margin-bottom:12px; background:var(--card);}
+.order-card .oh{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:8px;}
+.section-title{font-size:20px; font-weight:500; margin-bottom:14px;}
+.admin-list .row{align-items:flex-start;}
+.small{font-size:12px; color:var(--ink-soft);}
+.msg{font-size:13px; padding:10px; background:var(--taupe); margin-bottom:10px;}
+footer{text-align:center; color:var(--ink-soft); font-size:12px; padding:30px 0 10px;}
+
+/* ---------- Responsivo ---------- */
+img,.thumb{max-width:100%;}
+table,pre,.admin-list{overflow-x:auto;}
+
+@media (min-width:600px){
+  header{padding-left:32px; padding-right:32px;}
+  main{max-width:760px; padding:28px 24px;}
+  .grid{grid-template-columns:repeat(3,1fr); gap:18px;}
+  .hero{margin:-28px -24px 28px; padding:52px 30px;}
+  .hero h1{font-size:36px;}
+  .benefits{grid-template-columns:repeat(4,1fr);}
+  form{max-width:400px;}
+}
+
+@media (min-width:900px){
+  main{max-width:1040px; padding:34px 40px;}
+  .grid{grid-template-columns:repeat(4,1fr); gap:22px;}
+  .hero{padding:64px 40px;}
+  .hero h1{font-size:42px; max-width:20ch;}
+  .hero p{font-size:15px;}
+  .card .name{font-size:15px;}
+  .logo{font-size:22px;}
+  nav{gap:20px;}
+  nav button{font-size:14.5px;}
+}
+
+@media (min-width:1280px){
+  main{max-width:1200px;}
+  .grid{grid-template-columns:repeat(5,1fr);}
+}
+
+@media (max-width:380px){
+  .grid{grid-template-columns:1fr 1fr; gap:10px;}
+  .hero h1{font-size:26px;}
+  .logo{font-size:16px;}
+  nav{gap:8px;}
+  nav button{font-size:12.5px; padding:6px 3px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">Frete grátis acima de R$ 299 · Pague no Pix e ganhe 5% OFF · Até 6x sem juros</div>
+<header>
+  <div class="logo">Mi Modas Feminina</div>
+  <nav id="nav"></nav>
+</header>
+
+<main id="app"></main>
+
+<footer>Mi Modas Feminina — dados salvos apenas neste navegador</footer>
+
+<script>
+// ---------- "Banco de dados" em JSON via localStorage ----------
+const DB = {
+  read(key, fallback){ try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; } },
+  write(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+};
+
+function seed(){
+  if(!localStorage.getItem('alma_products')){
+    DB.write('alma_products', [
+      {id:1,name:"Vestido Dourado Midi",cat:"Vestidos",price:289.9,desc:"Vestido midi com fio metalizado dourado.",color:"#C6972F",stock:8},
+      {id:2,name:"Blazer Dourado Alfaiataria",cat:"Blazers",price:399.0,desc:"Blazer estruturado com botões dourados.",color:"#9C7420",stock:5},
+      {id:3,name:"Calça Pantalona Nude",cat:"Calças",price:219.9,desc:"Pantalona de cintura alta.",color:"#D9AE4E",stock:12},
+      {id:4,name:"Blusa Seda Dourada",cat:"Blusas",price:179.9,desc:"Blusa de seda com brilho dourado.",color:"#E8CE93",stock:10},
+      {id:5,name:"Saia Midi Plissada Dourada",cat:"Saias",price:199.9,desc:"Saia plissada com fio metalizado dourado.",color:"#C6972F",stock:7},
+      {id:6,name:"Trench Coat Rosé Gold",cat:"Casacos",price:459.0,desc:"Trench coat clássico em tom rosé gold.",color:"#B8935E",stock:4},
+    ]);
+  }
+  if(!localStorage.getItem('alma_users')){
+    DB.write('alma_users', [
+      {id:1,name:"Administradora",email:"admin@loja.com",pass:"admin123",isAdmin:true}
+    ]);
+  }
+  if(!localStorage.getItem('alma_orders')) DB.write('alma_orders', []);
+  if(!localStorage.getItem('alma_cart')) DB.write('alma_cart', []);
+}
+seed();
+
+let state = { view:'shop', session: DB.read('alma_session', null) };
+
+function users(){ return DB.read('alma_users', []); }
+function products(){ return DB.read('alma_products', []); }
+function orders(){ return DB.read('alma_orders', []); }
+function cart(){ return DB.read('alma_cart', []); }
+function currentUser(){ return state.session ? users().find(u=>u.id===state.session) : null; }
+function money(v){ return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
+
+function go(view){ state.view = view; render(); window.scrollTo(0,0); }
+
+function renderNav(){
+  const u = currentUser();
+  const nav = document.getElementById('nav');
+  const items = [];
+  items.push(`<button data-v="shop" class="${state.view==='shop'?'active':''}">Loja</button>`);
+  if(u){
+    items.push(`<button data-v="orders" class="${state.view==='orders'?'active':''}">Pedidos</button>`);
+    if(u.isAdmin) items.push(`<button data-v="admin" class="${state.view==='admin'?'active':''}">Admin</button>`);
+    items.push(`<button data-v="cart" class="cart-btn ${state.view==='cart'?'active':''}">Sacola${cart().length?`<span class="badge">${cart().reduce((a,i)=>a+i.qty,0)}</span>`:''}</button>`);
+    items.push(`<button data-v="logout">Sair</button>`);
+  } else {
+    items.push(`<button data-v="cart" class="cart-btn ${state.view==='cart'?'active':''}">Sacola${cart().length?`<span class="badge">${cart().reduce((a,i)=>a+i.qty,0)}</span>`:''}</button>`);
+    items.push(`<button data-v="login" class="${state.view==='login'?'active':''}">Entrar</button>`);
+  }
+  nav.innerHTML = items.join('');
+  nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    if(b.dataset.v==='logout'){ state.session=null; DB.write('alma_session',null); go('shop'); }
+    else go(b.dataset.v);
+  }));
+}
+
+function viewShop(){
+  const all = products();
+  const cats = ['Todos', ...new Set(all.map(p=>p.cat))];
+  const active = state.filterCat || 'Todos';
+  const list = active==='Todos' ? all : all.filter(p=>p.cat===active);
+  return `
+    <div class="hero">
+      <div class="kicker">Coleção atual</div>
+      <h1>Apaixone-se por você mesma</h1>
+      <p>Moda feminina com identidade própria, em tons de rosa e dourado.</p>
+      <button class="btn" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">Ver coleção</button>
+    </div>
+    <div class="benefits">
+      <div><b>Frete grátis</b>acima de R$ 299</div>
+      <div><b>Pix</b>5% de desconto</div>
+      <div><b>Parcelamento</b>em até 6x sem juros</div>
+      <div><b>Trocas</b>em até 30 dias</div>
+    </div>
+    <div class="cat-tabs">
+      ${cats.map(c=>`<button data-cat="${c}" class="${c===active?'active':''}">${c}</button>`).join('')}
+    </div>
+    <div class="grid" id="grid">
+      ${list.map(p=>`
+        <div class="card">
+          <div class="thumb" style="background:${p.color}">${p.name}</div>
+          <div class="info">
+            <div class="cat">${p.cat}</div>
+            <div class="name">${p.name}</div>
+            <div class="price">${money(p.price)}</div>
+            <button data-add="${p.id}" ${p.stock<1?'disabled':''}>${p.stock<1?'Esgotado':'Adicionar à sacola'}</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function viewLogin(){
+  return `
+    <h2 class="section-title">Entrar</h2>
+    <form id="loginForm">
+      <label>E-mail</label>
+      <input type="email" id="lEmail" required>
+      <label>Senha</label>
+      <input type="password" id="lPass" required>
+      <div id="loginMsg"></div>
+      <button class="btn" type="submit">Entrar</button>
+    </form>
+    <p class="link-sw">Não tem conta? <a id="toRegister">Cadastre-se</a></p>
+    <p class="small" style="margin-top:16px">Conta de teste do lojista: admin@loja.com / admin123</p>
+  `;
+}
+
+function viewRegister(){
+  return `
+    <h2 class="section-title">Criar conta</h2>
+    <form id="regForm">
+      <label>Nome completo</label>
+      <input type="text" id="rName" required>
+      <label>E-mail</label>
+      <input type="email" id="rEmail" required>
+      <label>Senha</label>
+      <input type="password" id="rPass" required minlength="4">
+      <div id="regMsg"></div>
+      <button class="btn" type="submit">Criar conta</button>
+    </form>
+    <p class="link-sw">Já tem conta? <a id="toLogin">Entrar</a></p>
+  `;
+}
+
+function viewCart(){
+  const c = cart();
+  const plist = products();
+  if(!c.length) return `<h2 class="section-title">Sacola</h2><p class="empty">Sua sacola está vazia.</p>`;
+  const rows = c.map(item=>{
+    const p = plist.find(p=>p.id===item.id);
+    if(!p) return '';
+    return `
+    <div class="row">
+      <div>
+        <div class="rname">${p.name}</div>
+        <div class="rsub">${money(p.price)}</div>
+      </div>
+      <div class="qty">
+        <button data-dec="${p.id}">−</button>
+        <span>${item.qty}</span>
+        <button data-inc="${p.id}">+</button>
+      </div>
+    </div>`;
+  }).join('');
+  const total = c.reduce((a,i)=>{ const p=plist.find(p=>p.id===i.id); return a + (p?p.price*i.qty:0); },0);
+  const u = currentUser();
+  return `
+    <h2 class="section-title">Sacola</h2>
+    ${rows}
+    <div class="total"><span>Total</span><span>${money(total)}</span></div>
+    ${u ? `<button class="btn" id="checkoutBtn">Finalizar pedido</button>` : `<p class="small">Entre na sua conta para finalizar o pedido.</p><button class="btn" id="goLoginCart">Entrar</button>`}
+  `;
+}
+
+function viewOrders(){
+  const u = currentUser();
+  const mine = orders().filter(o=>o.userId===u.id).sort((a,b)=>b.id-a.id);
+  if(!mine.length) return `<h2 class="section-title">Meus pedidos</h2><p class="empty">Você ainda não fez pedidos.</p>`;
+  return `<h2 class="section-title">Meus pedidos</h2>` + mine.map(o=>`
+    <div class="order-card">
+      <div class="oh"><span>Pedido #${o.id}</span><span>${o.date}</span></div>
+      ${o.items.map(i=>`<div class="small">${i.qty}x ${i.name}</div>`).join('')}
+      <div style="margin-top:8px; font-weight:600">${money(o.total)}</div>
+      <span class="pill">${o.status}</span>
+    </div>
+  `).join('');
+}
+
+function viewAdmin(){
+  const list = products();
+  return `
+    <h2 class="section-title">Painel do lojista</h2>
+    <h3 style="font-size:15px; margin-bottom:10px;" class="serif">Novo produto</h3>
+    <form id="prodForm">
+      <label>Nome</label>
+      <input type="text" id="pName" required>
+      <label>Categoria</label>
+      <input type="text" id="pCat" required>
+      <label>Preço (R$)</label>
+      <input type="number" id="pPrice" step="0.01" min="0" required>
+      <label>Estoque</label>
+      <input type="number" id="pStock" min="0" required value="1">
+      <label>Descrição</label>
+      <textarea id="pDesc" rows="2"></textarea>
+      <button class="btn" type="submit">Cadastrar produto</button>
+    </form>
+    <h3 style="font-size:15px; margin:26px 0 10px;" class="serif">Produtos cadastrados</h3>
+    <div class="admin-list">
+    ${list.map(p=>`
+      <div class="row">
+        <div>
+          <div class="rname">${p.name}</div>
+          <div class="rsub">${p.cat} · ${money(p.price)} · estoque ${p.stock}</div>
+        </div>
+        <button data-del="${p.id}" style="background:none;border:1px solid var(--line);padding:6px 10px;cursor:pointer;color:var(--ink)">Remover</button>
+      </div>
+    `).join('')}
+    </div>
+  `;
+}
+
+function render(){
+  renderNav();
+  const app = document.getElementById('app');
+  const u = currentUser();
+  let view = state.view;
+  if((view==='orders'||view==='admin') && !u) view='login';
+  if(view==='admin' && u && !u.isAdmin) view='shop';
+  let html='';
+  if(view==='shop') html=viewShop();
+  else if(view==='login') html=viewLogin();
+  else if(view==='register') html=viewRegister();
+  else if(view==='cart') html=viewCart();
+  else if(view==='orders') html=viewOrders();
+  else if(view==='admin') html=viewAdmin();
+  app.innerHTML = html;
+  bindEvents(view);
+}
+
+function bindEvents(view){
+  document.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{
+    state.filterCat = b.dataset.cat; render();
+  }));
+  document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>{
+    const id = Number(b.dataset.add);
+    const c = cart();
+    const existing = c.find(i=>i.id===id);
+    if(existing) existing.qty++; else c.push({id,qty:1});
+    DB.write('alma_cart', c);
+    render();
+  }));
+
+  if(view==='login'){
+    document.getElementById('toRegister').addEventListener('click',()=>go('register'));
+    document.getElementById('loginForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const email=document.getElementById('lEmail').value.trim().toLowerCase();
+      const pass=document.getElementById('lPass').value;
+      const u = users().find(u=>u.email.toLowerCase()===email && u.pass===pass);
+      if(!u){ document.getElementById('loginMsg').innerHTML='<div class="msg">E-mail ou senha incorretos.</div>'; return; }
+      state.session=u.id; DB.write('alma_session',u.id);
+      go(u.isAdmin?'admin':'shop');
+    });
+  }
+  if(view==='register'){
+    document.getElementById('toLogin').addEventListener('click',()=>go('login'));
+    document.getElementById('regForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const name=document.getElementById('rName').value.trim();
+      const email=document.getElementById('rEmail').value.trim().toLowerCase();
+      const pass=document.getElementById('rPass').value;
+      const list = users();
+      if(list.some(u=>u.email.toLowerCase()===email)){
+        document.getElementById('regMsg').innerHTML='<div class="msg">Este e-mail já está cadastrado.</div>'; return;
+      }
+      const id = list.length ? Math.max(...list.map(u=>u.id))+1 : 1;
+      const newUser = {id,name,email,pass,isAdmin:false};
+      list.push(newUser); DB.write('alma_users', list);
+      state.session=id; DB.write('alma_session',id);
+      go('shop');
+    });
+  }
+  if(view==='cart'){
+    document.querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click',()=>{
+      const c=cart(); const it=c.find(i=>i.id===Number(b.dataset.inc)); it.qty++; DB.write('alma_cart',c); render();
+    }));
+    document.querySelectorAll('[data-dec]').forEach(b=>b.addEventListener('click',()=>{
+      let c=cart(); const it=c.find(i=>i.id===Number(b.dataset.dec)); it.qty--;
+      if(it.qty<=0) c=c.filter(i=>i.id!==it.id);
+      DB.write('alma_cart',c); render();
+    }));
+    const cb = document.getElementById('checkoutBtn');
+    if(cb) cb.addEventListener('click',()=>{
+      const u = currentUser(); const c = cart(); const plist = products();
+      if(!c.length) return;
+      const items = c.map(i=>{ const p=plist.find(p=>p.id===i.id); return {productId:p.id,name:p.name,qty:i.qty,price:p.price}; });
+      const total = items.reduce((a,i)=>a+i.price*i.qty,0);
+      const list = orders();
+      const id = list.length ? Math.max(...list.map(o=>o.id))+1 : 1;
+      list.push({id,userId:u.id,items,total,date:new Date().toLocaleDateString('pt-BR'),status:'Confirmado'});
+      DB.write('alma_orders', list);
+      // baixa de estoque
+      const pl = products();
+      items.forEach(i=>{ const p=pl.find(p=>p.id===i.productId); if(p) p.stock=Math.max(0,p.stock-i.qty); });
+      DB.write('alma_products', pl);
+      DB.write('alma_cart', []);
+      go('orders');
+    });
+    const gl = document.getElementById('goLoginCart');
+    if(gl) gl.addEventListener('click',()=>go('login'));
+  }
+  if(view==='admin'){
+    document.getElementById('prodForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const list = products();
+      const id = list.length ? Math.max(...list.map(p=>p.id))+1 : 1;
+      const palette=['#C6972F','#9C7420','#D9AE4E','#E8CE93','#B8935E','#D88A9A'];
+      list.push({
+        id,
+        name:document.getElementById('pName').value.trim(),
+        cat:document.getElementById('pCat').value.trim(),
+        price:Number(document.getElementById('pPrice').value),
+        stock:Number(document.getElementById('pStock').value),
+        desc:document.getElementById('pDesc').value.trim(),
+        color:palette[id%palette.length]
+      });
+      DB.write('alma_products', list);
+      render();
+    });
+    document.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',()=>{
+      const id = Number(b.dataset.del);
+      DB.write('alma_products', products().filter(p=>p.id!==id));
+      render();
+    }));
+  }
+}
+
+render();
+</script>
+</body>
+</html>
